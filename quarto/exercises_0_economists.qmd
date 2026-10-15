@@ -1,0 +1,87 @@
+---
+title: "Exercises: Building A Small Dataset of Economists"
+subtitle: "Data Analytics with Python for Economics"
+format:
+  pdf:
+    geometry:
+      - left=2cm
+      - right=2cm
+      - top=2cm
+      - bottom=2cm
+fontsize: 11pt
+execute:
+  eval: false
+---
+
+Choose **two or three economists** you find inspiring. You may choose any economists. You can look up biographical information online if necessary.
+
+Work through the tasks in order. **Tasks 1 and 2 are the main exercise.** Continue with the optional tasks if you have time.
+
+Recommended: Work in a Jupyter Notebook (.ipynb) so you can execute and inspect your code step by step.
+
+## 1. Lists and tuples
+
+1. Create a list called `an_economist` containing the **name** and **year of birth** of your first economist.
+2. Use `.append()` to add the **year of death**, **country of birth**, and **Nobel Prize year**, in that order.
+3. If your economist is alive or did not receive the Nobel Prize, use `False` for the corresponding year.
+4. Display the list. Change one entry using its index. Remember that Python starts counting at `0`.
+5. Convert your list to a tuple. What happens if you try to change an entry now?
+
+**Starting point:**
+
+```{python}
+#| eval: false
+an_economist = ['Your chosen economist', 1900]  # Replace both values
+# Continue here
+```
+
+## 2. Dictionaries
+
+Create a dictionary for your **second economist** using these five keys: `'name', 'year_of_birth', 'year_of_death', 'country_of_birth', 'nobel_prize_year'`
+
+Then:
+
+1. Display the dictionary.
+2. Access the economist's name using the key `'name'`.
+3. Correct or change one value by referring to its key.
+4. Why might a dictionary be easier to work with than a list containing the same information?
+
+**Starting point:**
+
+```{python}
+#| eval: false
+another_economist = {
+    'name': 'Your second economist',
+    'year_of_birth': 1900,
+    'year_of_death': False,
+    'country_of_birth': 'Country',
+    'nobel_prize_year': False
+}
+# Replace the example values and continue here
+```
+
+## 3. Optional: Build a small table with pandas
+
+Create a **third economist** as a dictionary with the same five keys. Put your dictionaries into a list called `some_economists`. (You may also convert your first economist's tuple into a dictionary.)
+
+Then create a pandas `DataFrame`:
+
+```{python}
+#| eval: false
+import pandas as pd
+
+some_economists = [another_economist]  # Add your other dictionaries
+some_economists_df = pd.DataFrame(some_economists)
+
+print(some_economists_df)
+print(some_economists_df.dtypes)
+```
+
+Which columns represent years? Are their data types suitable?
+
+## 4. Optional: Missing values
+
+Use the pandas methods `astype()`, `convert_dtypes()`, and `replace()` to prepare the columns containing years. Replace `0` and `False` where they indicate missing information with `pd.NA`, and ensure that the year columns have suitable data types that allow missing values.
+
+**Check:** Display your final `DataFrame` and its `.dtypes`.
+
