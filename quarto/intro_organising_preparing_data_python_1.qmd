@@ -1,0 +1,167 @@
+---
+title: "Organising and Preparing Data in Python (Part 1)"
+
+subtitle: "Data Analytics with Python for Economics"
+
+format:
+
+  revealjs:
+
+    theme: dark
+
+    embed-resources: true
+
+    slide-number: true
+
+    fontsize: 24px
+
+    code-block-font-size: 0.8em
+
+execute:
+
+  echo: true
+
+---
+
+## Objectives {.scrollable}
+
+
+- Explore ways to enter, organise, and prepare data using Python: lists, tuples, dictionaries, classes, data types, and pandas.
+- Use biographical data on influential economists as a running example. 
+
+## Using Lists and Tuples {.scrollable}
+Both can contain objects of different types. The main difference is **mutability**: lists can be changed after creation; tuples cannot.
+
+## Creating a List {.scrollable}
+Lists can be altered after creation (they are mutable):
+
+Let us take an economist. 
+
+Let us enter her name and year of birth:
+
+```{python}
+an_economist = ['Joan Robinson', 1903]
+print(an_economist)
+```
+
+## Adding Items to a List {.scrollable}
+Let us also add her year of death (or `False` if still alive), her place of birth, and the year in which she received the Nobel Prize (or `False` if she did not receive it): 
+
+```{python}
+an_economist.append(1983)
+an_economist.append('UK')
+an_economist.append(1975)
+
+an_economist
+
+```
+
+*Remark:* Let us temporarily use `False` when a year does not apply. This is not ideal: `None` would more clearly indicate the absence of a year. Here, it is nevertheless fine.
+
+## Modifying a List Item {.scrollable}
+Oh, I made a mistake: unfortunately, Joan Robinson did not receive the Nobel Prize. 
+
+No need to create a new list, I can correct the mistake directly, because lists are *mutable*. One thing I need to pay attention to is that the indexing starts from `0` (and not `1` as in R):
+
+```{python}
+an_economist[4] = False
+
+an_economist
+
+```
+
+## Immutability of Tuples {.scrollable}
+Let us convert the list to a tuple:
+
+```{python}
+an_economist = tuple(an_economist)
+
+an_economist
+
+```
+
+Now I can no longer modify single elements of the object, because tuples are immutable:
+
+```{python}
+#| error: true
+an_economist[0] = 'Joan Violet Robinson'
+
+```
+
+```{python}
+#| echo: false
+#| output: false
+try:
+    an_economist[0] = 'Joan Violet Robinson'
+except TypeError as error:
+    print(type(error).__name__ + ":", error)
+
+```
+
+## Versatility of Lists and Tuples {.scrollable}
+Lists and tuples can contain any types of objects, so even lists and tuples:
+
+```{python}
+some_economists = [an_economist]
+
+another_economist = 'Ragnar Frisch', 1895, 1973, 'Norway', 1969
+
+some_economists.append(another_economist)
+
+some_economists
+
+```
+
+## Using Dictionaries {.scrollable}
+This works, but can we do better? What if we forget what each position in a list or tuple means? Dictionaries store **key–value pairs**, allowing us to identify values by meaningful keys. Each key must be unique within a dictionary. 
+
+```{python}
+yet_another_economist = {}
+
+yet_another_economist['name'] = 'Jan Tinbergen'
+yet_another_economist['year_of_birth'] = 1903
+yet_another_economist['year_of_death'] = 1994
+yet_another_economist['country_of_birth'] = 'Netherlands'
+yet_another_economist['nobel_prize_year'] = 1969
+
+some_economists.append(yet_another_economist)
+
+```
+
+## Defining Dictionaries {.scrollable}
+That was rather tedious. Can we do better? 
+
+Of course:
+
+```{python}
+the_fourth_economist = {
+    'name': 'John Maynard Keynes',
+    'year_of_birth': 1883,
+    'year_of_death': 1946,
+    'country_of_birth': 'UK',
+    'nobel_prize_year': False
+}
+
+the_fourth_economist
+
+some_economists.append(the_fourth_economist)
+
+some_economists
+
+```
+
+or 
+
+```{python}
+the_fifth_economist = dict([
+    ('name', 'Trygve Haavelmo'),
+    ('year_of_birth', 1911),
+    ('year_of_death', 1999),
+    ('country_of_birth', 'Norway'),
+    ('nobel_prize_year', 1989)
+])
+
+some_economists.append(the_fifth_economist)
+some_economists
+
+```

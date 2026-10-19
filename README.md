@@ -2,7 +2,11 @@
 
 ### HTML files
 
+ - [Session 1: Organising Data with Lists, Tuples, Dictionaries](quarto/intro_organising_preparing_data_python_1.html)
+
 ### Jupyter Notebooks
+
+ - [Session 1 Notebook: Organising Data with Lists, Tuples, Dictionaries](notebooks/small_dataset_of_economists.ipynb)
 
 ### PDF files
 
