@@ -2,7 +2,7 @@
 
 ### HTML files
 
- - [Session 1: Organising Data with Lists, Tuples, Dictionaries](quarto/intro_organising_preparing_data_python_1.html)
+ - [Session 1: Organising Data with Lists, Tuples, Dictionaries](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/intro_organising_preparing_data_python_1.html)
 
 ### Jupyter Notebooks
 
