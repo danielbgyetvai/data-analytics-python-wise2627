@@ -11,3 +11,5 @@
 ### PDF files
 
  - [Exercises: Building a Small Dataset of Economists](quarto/exercises_0_economists.pdf)
+
+ 

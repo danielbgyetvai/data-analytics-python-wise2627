@@ -1,0 +1,62 @@
+---
+title: "Exercises: Creating and Conducting a Fictitious Survey"
+format:
+  pdf:
+    fig-width: 8
+    fig-height: 5
+    geometry:
+      - left=1.5cm
+      - right=1.5cm
+      - top=1.5cm
+      - bottom=2.5cm
+    include-in-header:
+      text: |
+        \usepackage{tabularx}
+        \usepackage{booktabs}
+        \usepackage{lastpage}
+        \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyfoot[C]{\thepage/\pageref{LastPage}}
+        \fancypagestyle{plain}{
+          \fancyhf{}
+          \fancyfoot[C]{\thepage/\pageref{LastPage}}
+        }
+    include-before-body:
+      text: |
+        \thispagestyle{fancy}
+---
+
+## I. Using Functions and Lists
+
+**(a)** Write a Python function `create_survey(max_questions=10)` that interactively collects survey questions using `input()` and returns them as a list. The function should collect at most `max_questions` questions. The user should be able to stop entering questions at any time by pressing Enter without typing anything. An empty input should not be added to the list. (Hint: You may find `for`, `if`, `break`, and `append()` useful. Alternatively, you can use a `while` loop.)
+
+**(b)** Write a Python function that takes a list of questions as input and interactively collects an answer to each question using `input()`. The function should return a list of answers in the same order as the questions. (Possibly useful: `for`, `append`.)
+
+**(c)** Use the function from (a) to create your own survey. Then pass the resulting list of questions to the function from (b). Complete the survey yourself or ask another person to respond. You are welcome to provide entirely fictitious answers or respond on behalf of an imaginary character.
+
+## II. Using Classes
+
+Create a Python class called `Survey`.
+
+The class should have the following attributes:
+
+- `questions`: a list of survey questions.
+- `responses`: a list of lists, where each inner list contains the answers given by one respondent.
+
+The class should have the following methods:
+
+- `add_questions()`: Interactively collect questions using `input()` and add them to the questions list. Allow the user to stop entering questions by pressing Enter without typing anything.
+- `respond()`: Interactively collect one answer for each question using `input()`. Store the responses as a new list within the responses attribute.
+
+**(a)** Define the `Survey` class, including its attributes and methods.
+
+**(b)** Create an instance (a particular object) of `Survey` and use `add_questions()` to enter your survey questions.
+
+**(c)** Use `respond()` multiple times to collect answers from different respondents. You may invent respondents and their answers.
+
+**(d)** Inspect the attributes of your survey object. Check that the questions and responses have been stored correctly.
+
+## III. Preparing Survey Data
+
+Convert the survey responses from I or II into a pandas `DataFrame`, using the survey questions as column names. Display the resulting table.
