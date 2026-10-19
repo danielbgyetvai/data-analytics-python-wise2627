@@ -11,5 +11,6 @@
 ### PDF files
 
  - [Exercises: Building a Small Dataset of Economists](quarto/exercises_0_economists.pdf)
+ - [Exercises: Creating and Conducting a Fictitious Survey](quarto/exercises_0_survey.pdf)
 
  
