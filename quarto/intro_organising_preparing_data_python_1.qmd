@@ -165,3 +165,274 @@ some_economists.append(the_fifth_economist)
 some_economists
 
 ```
+
+
+## Putting together Dictionaries {.scrollable}
+What about Joan and Ragnar? Let us convert their records into dictionaries.
+
+Let us check that the ordering of the keys is correct:
+
+```{python}
+attribute_keys = some_economists[2].keys()
+
+attribute_keys
+
+```
+
+Let us convert the keys to a tuple:
+
+```{python}
+attribute_keys = tuple(attribute_keys)
+
+```
+
+We can pair the keys with the values using `zip()`, then pass those pairs to `dict()`:
+
+```{python}
+converted_record_Joan = dict(zip(attribute_keys, some_economists[0]))
+print(converted_record_Joan)
+
+converted_record_Ragnar = dict(zip(attribute_keys, some_economists[1]))
+print(converted_record_Ragnar)
+
+```
+
+```{python}
+some_economists[0] = converted_record_Joan
+some_economists[1] = converted_record_Ragnar
+
+```
+
+```{python}
+some_economists
+
+```
+
+## Using Functions and `input()` {.scrollable}
+It still feels repetitive to enter the data. Can we spare some typing? Let us try. Let us create a function `add_economist()` for this purpose.
+
+```{python}
+def add_economist():
+
+    attribute_keys = 'name', 'year_of_birth', 'year_of_death', 'country_of_birth', 'nobel_prize_year'
+
+    new_economist = dict([(key, input(key + ':')) for key in attribute_keys])
+
+    some_economists.append(new_economist)
+
+```
+
+Let us interactively enter the details for Elinor Ostrom `('Elinor Ostrom', 1933, 2012, 'USA', 2009)` while running:
+
+```{python}
+#| eval: false
+
+add_economist()
+
+```
+
+```{python}
+#| echo: false
+
+from unittest.mock import patch
+
+answers = [
+    'Elinor Ostrom',
+    '1933',
+    '2012',
+    'USA',
+    '2009'
+]
+
+with patch('builtins.input', side_effect=answers):
+    add_economist()
+
+```
+
+```{python}
+some_economists
+
+```
+
+## Using Classes: Defining an `Economist` {.scrollable}
+An alternative way to enter data is to think of variables as attributes of objects. For example, one can define a class of objects named `Economist` in the following way:
+
+```{python}
+class Economist:
+
+    def __init__(self):
+        self.name: str = ''
+        self.year_of_birth: int = 0
+        self.year_of_death: int = 0
+        self.country_of_birth: str = ''
+        self.nobel_prize_year: int = 0
+
+    def add_attributes(self):
+        for attr, value in self.__dict__.items():
+            expected_type = type(value)
+            answer = input(attr + " (enter 0 if not applicable): ")
+            setattr(self, attr, expected_type(answer))
+
+```
+
+Each instance of the `Economist` class has five attributes initialised in `__init__()`: `name`, `year_of_birth`, `year_of_death`, `country_of_birth`, `nobel_prize_year`.
+
+The type hints `str` (*string*) and `int` (*integer*) document the expected types: text for names and countries, whole numbers for years. The defaults are an empty string `''` and the integer `0`. (Remark: Type hints do not enforce types when run.)
+
+The `add_attributes()` method collects values interactively with `input()`, converts them to the expected types, and assigns them to the object's attributes. 
+
+The functions `__init__()` and `add_attributes()` are so-called **methods** of the `Economist` class. 
+
+## Creating an Object and Setting its Attributes
+Let us begin by creating an `Economist` object without specifying any attributes:
+
+```{python}
+new_economist = Economist()
+
+```
+
+Let us interactively enter the details for Reinhard Selten `('Reinhard Selten', 1930, 2016, 'Germany', 1994)` while running:
+
+```{python}
+#| eval: false
+
+new_economist.add_attributes()
+
+```
+
+```{python}
+#| echo: false
+
+from unittest.mock import patch
+
+answers = [
+    'Reinhard Selten',
+    '1930',
+    '2016',
+    'Germany',
+    '1994'
+]
+
+with patch('builtins.input', side_effect=answers):
+    new_economist.add_attributes()
+
+```
+
+The attribute `__dict__` is the dictionary of all attributes:
+
+```{python}
+new_economist.__dict__
+
+```
+
+Let us add the data on Reinhard Selten to our collection: 
+
+```{python}
+some_economists.append(new_economist.__dict__)
+
+some_economists
+
+```
+
+## Setting Object Attributes {.scrollable}
+Often we do not want to enter records interactively. We can instead set the attributes in the script as follows:
+
+```{python}
+living_economist = Economist()
+living_economist.name = 'Esther Duflo'
+living_economist.year_of_birth = 1972
+living_economist.country_of_birth = 'France'
+living_economist.nobel_prize_year = 2019
+
+```
+
+Once again, we can check that we correctly assigned the details regarding Esther Duflo:
+
+```{python}
+living_economist.__dict__
+
+```
+
+Let us add the data on Esther Duflo to our collection:
+
+```{python}
+some_economists.append(living_economist.__dict__)
+
+```
+
+```{python}
+some_economists
+
+```
+
+## Setting Object Attributes at Creation  {.scrollable}
+Can we assign attributes directly when creating an object? Yes. 
+
+Let us re-define our Economist class as follows:
+
+```{python}
+class Economist:
+
+    def __init__(
+            self,
+            name: str = '',
+            year_of_birth: int = 0,
+            year_of_death: int = 0,
+            country_of_birth: str = '',
+            nobel_prize_year: int = 0
+            ):
+
+        self.name = name
+        self.year_of_birth = year_of_birth
+        self.year_of_death = year_of_death
+        self.country_of_birth = country_of_birth
+        self.nobel_prize_year = nobel_prize_year
+
+    def add_attributes(self):
+
+        for attr, value in self.__dict__.items():
+            expected_type = type(value)
+            answer = input(attr + " (enter 0 if not applicable): ")
+            setattr(self, attr, expected_type(answer))
+
+```
+
+Using this new definition, let us add another living economist:
+
+```{python}
+another_living_economist = Economist('Amartya Sen', 1933, 0, 'India', 1998)
+
+```
+
+We can check that the details on Amartya Sen have been correctly entered:
+
+```{python}
+another_living_economist.__dict__
+
+```
+
+Let us add the data on Amartya Sen to our collection:
+
+```{python}
+some_economists.append(another_living_economist.__dict__)
+
+```
+
+```{python}
+some_economists
+
+```
+
+## Using pandas `DataFrame`s {.scrollable}
+So far, we have organised records using lists, tuples, dictionaries, and objects. For data analysis, a **table** is often more convenient: each row represents an observation and each column a variable. In Python, the `pandas` package provides the `DataFrame` for working with tabular data.
+
+Pandas can assemble our list of dictionaries into a `DataFrame` automatically:
+
+```{python}
+import pandas as pd
+
+some_economists_df = pd.DataFrame(some_economists)
+
+some_economists_df
+
+```
