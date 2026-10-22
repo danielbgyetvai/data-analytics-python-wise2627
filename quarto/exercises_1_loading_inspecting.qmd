@@ -1,0 +1,135 @@
+---
+title: "Exercises: Loading and Inspecting the `nlsy97_emp_hed.parquet` Dataset"
+format:
+  pdf:
+    fig-width: 8
+    fig-height: 5
+    geometry:
+      - left=1.5cm
+      - right=1.5cm
+      - top=1.5cm
+      - bottom=2.5cm
+    include-in-header:
+      text: |
+        \usepackage{tabularx}
+        \usepackage{booktabs}
+        \usepackage{lastpage}
+        \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyfoot[C]{\thepage/\pageref{LastPage}}
+        \fancypagestyle{plain}{
+          \fancyhf{}
+          \fancyfoot[C]{\thepage/\pageref{LastPage}}
+        }
+    include-before-body:
+      text: |
+        \thispagestyle{fancy}
+execute:
+  eval: false
+---
+
+In the following, let us use the NLSY97 Monthly Employment and College Enrollment Status data file (available on Moodle): nlsy97_emp_hed.parquet.
+
+## I. Loading Data
+
+**(a)** Let us begin with loading the necessary packages:
+
+```{python}
+# external (third-party) packages
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# packages of the standard library
+from pathlib import Path
+
+```
+
+**(b)** Next, let us set the project directory. I name it `ROOT` (root directory), i.e. the folder containing the subfolders and files needed for the project.  
+
+We can then define the project's root directory as a string or as an explicit `Path` object (from the `pathlib` module):
+
+```{python}
+# Your path will almost certainly differ from the one below.
+ROOT = Path(r'C:\Users\PC_DS_ECON_5\Desktop\data-analytics-python-wise2627')
+ROOT
+```
+
+(The `r` before the string indicates a *raw string*. In ordinary Python strings, certain character sequences have special meanings. For example, `'\n'` represents a newline character. Raw strings are particularly useful for writing Windows paths, which contain backslashes.)
+
+You should set `ROOT` according to the location of the project folder on your own computer.
+
+If we are not sure in which folder we currently are, we can run the following code to find it out:
+
+```{python}
+cur_path = Path.cwd()
+print(cur_path)
+```
+
+**(c)** Let us specify the path of the folder in which we store our data file:
+
+```{python}
+DATA = ROOT / 'local' / 'data'
+```
+
+It is up to you how you name the folder and whether you put it in a folder called `local`.
+
+**(d)** Let us read in the `nlsy97_emp_hed.parquet` file using `pandas.read_parquet()`:
+
+```{python}
+df = pd.read_parquet(DATA / 'nlsy97_emp_hed.parquet')
+```
+
+(To read the file, one needs a Parquet engine, such as the one provided by the `pyarrow` package. The package can be installed in the usual way with `pip install pyarrow` after activating the virtual environment.)
+
+## II. Inspecting the dataset
+
+**(a)** Inspect the object by running the following commands one after the other:
+
+```{python}
+# type of the object
+print('type of object: ', type(df))
+# column names
+print('variables: ', df.columns)
+# column dimensions
+print('dimensions: ', df.shape)
+```
+
+Question: What type of object is `df`? How many columns/variables are there? How many rows/observations are there?
+
+Run the following code to display the first ten rows/observations of the dataset:
+
+```{python}
+df.head(10)
+```
+
+**(b)** Run the following code to display the number of observations for each year:
+
+```{python}
+df.value_counts(subset=['year'], normalize=False)
+```
+
+Which year has the most observations?
+
+Run the following code to calculate the relative frequencies of employment status categories in June 2009:
+
+```{python}
+(
+    df
+        .loc[df['year_month'].eq(pd.Period('2009-06', freq='M')),:]
+        .value_counts(subset=['emp_category'], normalize=True)
+)
+```
+
+What share of observations with a known employment status were classified as unemployed?
+
+(Bonus question: Does this share correspond to the official unemployment rate? Why or why not?)
+
+**(c)** What is the unit of observation? Put differently, which of the following combinations of variables uniquely identifies each row/observation?
+
+ - `person_id`
+ - `person_id` X `year`
+ - `person_id` X `year_month`
+
+How would you use the `value_counts()` method to find it out?

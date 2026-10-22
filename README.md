@@ -12,5 +12,5 @@
 
  - [Exercises: Building a Small Dataset of Economists](quarto/exercises_0_economists.pdf)
  - [Exercises: Creating and Conducting a Fictitious Survey](quarto/exercises_0_survey.pdf)
-
+ - [Exercises: Loading and Inspecting the `nlsy97_emp_hed.parquet` Dataset](quarto/exercises_1_loading_inspecting.pdf)
  
