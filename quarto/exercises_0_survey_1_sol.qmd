@@ -1,0 +1,162 @@
+---
+title: "Interactively adding questions to a survey and answering them (Part 1)"
+
+subtitle: "Data Analytics with Python for Economics"
+
+format:
+
+  revealjs:
+
+    theme: dark
+
+    syntax-highlighting: monokai
+
+    embed-resources: true
+
+    slide-number: true
+
+    fontsize: 24px
+
+    code-block-font-size: 0.8em
+
+execute:
+
+  echo: true
+
+
+
+---
+
+## Information
+
+These slides present some possible solutions for the exercises [Exercises: Creating and Conducting a Fictitious Survey](https://github.com/danielbgyetvai/data-analytics-python-wise2627/blob/main/quarto/exercises_0_survey.pdf).
+
+## Task 1.a {.scrollable}
+
+### Task: 
+
+Write a Python function that creates a survey by interactively collecting questions using `input()`. The function should return a list of questions. Allow the user to stop entering questions by pressing Enter without typing anything. (Possibly useful: `while`, `if`, `break`, `append`.)
+
+### A possible solution:
+
+```{python}
+
+# defining a function called create_survey()
+# with a single argument max_question 
+# with default value 10
+def create_survey(max_question = 10):
+    # creating an empty list named questions
+    questions = []
+    # iteratively collecting questions
+    # using a for loop, a range() object
+    for i in range(max_question):
+        # at each iteration, ask the user to enter the next question
+        # using input()
+        question = input('Enter the next question: ')
+        # if the user did not enter anything, break/end the loop immediately
+        if question == '':
+            break
+        # otherwise add the question entered by the user 
+        # to the list of questions
+        questions.append(question)
+    # the function's output is / the function returns 
+    # the list called questions
+    return questions
+
+
+```
+
+## Task 1.b {.scrollable}
+
+### Task:
+
+Write a Python function that takes a list of questions as input and interactively collects an answer to each question using `input()`. The function should return a list of answers in the same order as the questions. (Possibly useful: `for`, `append`.)
+
+### A possible solution:
+
+```{python}
+
+# define a function called respond
+# with a single argument named questions 
+def respond(questions):
+    # create an empty list called answers for storing the answers
+    answers = []
+    # iterate over the elements of the list called questions
+    # using a for loop
+    for question in questions:
+        # for each question, ask the user to enter an answer
+        # using input()
+        answer = input(question)
+        # append the answer to the list of answers
+        answers.append(answer)
+    # the function's output is / the function returns 
+    # the list called answers
+    return answers
+
+```
+
+## Task 1.c
+
+### Task:
+
+Use the function from (a) to create your own survey. Then pass the resulting list of questions to the function from (b). Complete the survey yourself or ask another person to respond. You are welcome to provide entirely fictitious answers or respond on behalf of an imaginary character.
+
+### A possible solution:
+
+```{python}
+#| echo: false
+
+from unittest.mock import patch
+
+questions = [
+    'How would you describe your dream job?',
+    'Are you worried about the future of your country?',
+    ''
+]
+
+with patch('builtins.input', side_effect=questions):
+    survey = create_survey()
+
+```
+
+```{python}
+#| eval: false
+# run the create_survey() function
+# and let its output (list of questions) be stored as 'survey'
+survey = create_survey()
+```
+
+```{python}
+# display the content of the list called survey
+survey
+```
+
+```{python}
+#| echo: false
+
+from unittest.mock import patch
+
+answers = [
+    'Something useful for people, versatile, and somewhat challenging.',
+    'I do not know. There is much uncertainty.'
+]
+
+with patch('builtins.input', side_effect=answers):
+    response = respond(survey)
+
+```
+
+
+```{python}
+#| eval: false
+# run the respond() function 
+# with the questions argument being equal to the list called survey 
+# and let the output (list of answers) be stored as 'response'
+response = respond(survey)
+
+```
+
+```{python}
+# display the list called response containing the list of answers
+response
+```

@@ -4,6 +4,8 @@
 
  - [Sessions 1-3: Organising and Preparing Data in Python](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/intro_organising_preparing_data_python.html)
 
+ - [Sessions 3: Interactively adding questions to a survey and answering them (Part 1)](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/exercises_0_survey_1_sol.html)
+
 ### Jupyter Notebooks
 
  - [Session 1 Notebook: Organising Data with Lists, Tuples, Dictionaries](notebooks/small_dataset_of_economists.ipynb)
