@@ -1,7 +1,7 @@
 ## Data Analytics with Python for Economics (Winter Semester 26/27)
 
 ### HTML files
-gi
+
  - [Sessions 1-3: Organising and Preparing Data in Python](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/intro_organising_preparing_data_python.html)
 
 ### Jupyter Notebooks
