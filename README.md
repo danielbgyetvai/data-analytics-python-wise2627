@@ -3,8 +3,8 @@
 ### HTML files
 
  - [Sessions 1-3: Organising and Preparing Data in Python](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/intro_organising_preparing_data_python.html)
-
  - [Session 3: Interactively adding questions to a survey and answering them (Part 1)](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/exercises_0_survey_1_sol.html)
+ - [Discussion of various Python elements](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/discussion_various_python_elements.html)
 
 ### Jupyter Notebooks
 

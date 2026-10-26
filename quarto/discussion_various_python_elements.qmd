@@ -1,0 +1,373 @@
+---
+title: "Discussion of various Python elements"
+
+subtitle: "Data Analytics with Python for Economics"
+
+format:
+
+  revealjs:
+
+    theme: dark
+
+    syntax-highlighting: monokai
+
+    embed-resources: true
+
+    slide-number: true
+
+    fontsize: 24px
+
+    code-block-font-size: 0.8em
+
+execute:
+
+  echo: true
+
+
+
+---
+
+## Information
+
+These slides are complementary to the other html files from Sessions 1-3. The topics that are being discussed are:
+
+- Assignment statement
+- Unpacking
+- Value comparison
+- Srtings
+- Object referencing
+- Modifying objects in place versus creating new objects
+
+
+## Assignment statement {.scrollable}
+
+We had the following example at the very beginning:
+
+```{python}
+an_economist = ['Joan Robinson', 1903]
+```
+
+This is called an *assignment statement*.
+
+Two things happen when this statement is executed:
+
+- **Object creation:** A list object containing two elements, `['Joan Robinson', 1903]`, is created.
+- **Assignment:** The name `an_economist` is bound to this object. The equals sign `=` indicates *assignment*.
+
+After the assignment, we can refer to the list using its name:
+
+```{python}
+an_economist
+```
+
+## Unpacking {.scrollable}
+
+Python has an elegant way of working with sequence types. 
+
+One example is that separating values by commas creates a tuple, even without parentheses:
+
+```{python}
+'Elinor Ostrom', 1933, 2012, 'USA', 2009
+```
+
+```{python}
+another_economist = 'Elinor Ostrom', 1933, 2012, 'USA', 2009
+```
+
+Tuples and lists support so-called *unpacking*, a form of assignment.
+
+In the examples below, `name` is bound to the first element and `nobel_prize_year` to the last element of the sequence (first a tuple, then a list):
+
+```{python}
+name, *_, nobel_prize_year = another_economist
+```
+
+```{python}
+name
+```
+
+```{python}
+nobel_prize_year
+```
+
+```{python}
+another_economist = list(another_economist)
+name, *other_info, nobel_prize_year = another_economist
+```
+
+```{python}
+name
+```
+
+```{python}
+nobel_prize_year
+```
+
+Unpacking is a form of assignment: it binds names to existing objects rather than creating copies.
+
+## Value comparison {.scrollable}
+
+In Python, the equality operator `==` is used to check whether two values are equal. 
+
+In the following example, are the years of birth equal?
+
+```{python}
+print(an_economist[1], another_economist[1])
+an_economist[1] == another_economist[1]
+```
+
+The result is `False`, a Boolean, equivalent to the `logical` data type in `R`.
+
+Data types can matter when comparing values:
+
+```{python}
+x, y = '1', 1
+print('Values as printed: ', 'x:', x, ', ', 'y:',  y)
+x == y, int(x) == y
+```
+
+However, values of different types can also compare as equal:
+
+```{python}
+False == 0, True == 1, 1.0 == 1, False == 0.0, True == 1.0 
+```
+
+Strings can also be compared:
+
+```{python}
+'Joan Robinson' == 'Joan' + ' ' + 'Robinson'
+```
+
+Here, the `+` operator joins strings together.
+
+Alternatively, strings can be joined using the `join()` method:
+
+```{python}
+'Joan Robinson' == ' '.join(['Joan', 'Robinson'])
+```
+
+## Strings {.scrollable}
+
+A *string* is a sequence of characters. In Python, strings are objects of type `str`.
+
+String literals can be written using either single `'` or double `"` quotation marks:
+
+```{python}
+a_string = 'Trygve Haavelmo'
+another_string = "Esther Duflo"
+yet_another_string = '2019'
+type(a_string), type(another_string), type(yet_another_string)
+```
+
+Note that `'2019'` is a string, not a number (although 2019 is of course a number).
+
+We can convert numbers to strings using the `str()` function:
+
+```{python}
+str(2019)
+```
+
+And then back to integer (whole number) using `int()`:
+
+```{python}
+int('2019')
+```
+
+or floating point number using `float()`:
+
+```{python}
+float('2019')
+```
+
+More information on strings can be found in the [official Python documentation](https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str).
+
+### Strings in `pandas`
+
+Strings also appear as values in `pandas` data frames. (They are similar to the `character` data type in `R`.)
+
+For illustration, let us create a small pandas data frame:
+
+```{python}
+# importing the pandas package
+# using the abbreviation pd
+import pandas as pd
+
+# creating a data frame with two columns
+some_economists = pd.DataFrame({
+    'name': ['Joan Robinson', 'John Maynard Keynes', 'Esther Duflo'],
+    'nobel_prize_year': [False, None, '2019']
+})
+
+# displaying the data frame
+some_economists
+```
+
+The column `nobel_prize_year` has the generic `object` data type:
+
+```{python}
+some_economists.dtypes
+```
+
+because it contains values of different types. In particular, it contains the string `'2019'` as well as `False`, which is a Boolean:
+
+```{python}
+type(False)
+```
+
+Let us convert the column `nobel_prize_year` to string data type using `astype()`:
+
+```{python}
+some_economists['nobel_prize_year'] = some_economists['nobel_prize_year'].astype(str)
+```
+
+We can verify the conversion:
+
+```{python}
+some_economists.dtypes
+```
+
+The column now contains strings and a missing value, represented by `NaN` or `nan`:
+
+```{python}
+some_economists['nobel_prize_year'].to_list()
+```
+
+(Remark: `NaN` or `nan` is a representation of missing values used by the `numpy` package, on which `pandas` was originally built.)
+
+The Boolean `False` has been converted to the string `'False'`.
+
+We can verify that `'False'` is a string:
+
+```{python}
+type('False')
+```
+
+In most cases we encounter, it is useful to convert all data types to pandas' dedicated data types:
+
+```{python}
+some_economists = some_economists.convert_dtypes()
+```
+
+Notice the following two differences:
+
+1. Missing values are now `pd.NA`, pandas' dedicated missing values:
+
+```{python}
+some_economists['nobel_prize_year'].to_list()
+```
+
+2. The column now has pandas' dedicated `string` data type instead of the `str` data type:
+
+```{python}
+some_economists.dtypes
+```
+
+Finally, note that the code above is just an illustration. In practice, we would of course prefer the column `nobel_prize_year` to have an integer (whole number) data type.
+
+
+## Object referencing {.scrollable}
+
+An important aspect of Python (in contrast to the usual behaviour of R) is that names refer to objects.
+
+This is particularly important when working with mutable objects like lists, dictionaries, or pandas data frames.
+
+### Illustration 
+
+Let us create a list and bind the name `an_econometrician` to it:
+
+```{python} 
+an_econometrician = ['Ragnar Frisch', 1895, 1973, None, None]
+```
+
+Let us bind the name `the_same_econometrician` to the same list as the one referenced by `an_econometrician`.
+
+```{python}
+the_same_econometrician = an_econometrician
+```
+
+It is now possible to modify the same list using any of the two names bound to it.
+
+For example, let us specify the country of birth as the fourth item using the second name:
+
+```{python}
+the_same_econometrician[3] = 'Norway'
+```
+
+We can check that the modification applies, irrespective of the name:
+
+```{python}
+an_econometrician
+```
+
+And now the other way around, let us specify the year in which he received the Nobel Prize as the fifth item using the first name:
+
+```{python}
+an_econometrician[4] = 1969
+```
+
+Once again, we can check that the modification applies, irrespective of the name:
+
+```{python}
+the_same_econometrician
+```
+
+One can check that both names refer to the same object using object identifiers:
+
+```{python}
+id(an_econometrician) == id(the_same_econometrician)
+```
+
+or using the `is` operator:
+
+```{python}
+an_econometrician is the_same_econometrician
+```
+
+## Modifying objects in place versus creating new objects {.scrollable}
+
+Some functions and methods modify existing objects *in place*, while others return new objects. 
+
+Side Note: A *method* is a function associated with an object or a class.
+
+We can find out which behaviour applies by consulting the documentation or running a small experiment.
+
+### Illustration 1: the list method `append()` modifies the list in place
+
+The `append()` method adds an element to the list it is called with:
+
+```{python}
+print('list before append(): ', an_economist)
+print('list object identifier: ', id(an_economist))
+an_economist.append(1983)
+print('list after append(): ', an_economist)
+print('list object identifier: ', id(an_economist), ' (same as before)')
+
+```
+
+The `append()` method modifies the list referenced by `an_economist` *in place*. The object identifier remains unchanged. Simply by running `an_economist.append(1983)`, the item `1983` is added to the list referenced by `an_economist`.
+
+### Illustration 2: `df.sort_values()` creates a new object
+
+In pandas, most functions (or methods) do not modify the object in place by default. This behaviour is useful in data analysis, where we often want to apply different transformations to the same dataset without changing the original data.
+
+For example, sorting the data frame referenced by `some_economists` by `name` using `sort_values()` creates a new object, a sorted version of the original:
+
+```{python}
+some_economists.sort_values(by='name', ignore_index=True)
+```
+
+The original data frame remains unchanged:
+```{python}
+some_economists
+```
+
+To keep the sorted data frame under the same name, we can assign the result back to `some_economists`:
+
+```{python}
+some_economists = some_economists.sort_values(by='name', ignore_index=True)
+some_economists
+```
+
+To sum up: Some methods modify objects *in place* (such as `append()`), while others return new objects (such as `sort_values()` in pandas).
+
+It is therefore important to check the behaviour of a method when using it.
