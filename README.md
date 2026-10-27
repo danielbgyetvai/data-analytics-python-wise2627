@@ -1,18 +1,26 @@
 ## Data Analytics with Python for Economics (Winter Semester 26/27)
 
-### HTML files
+### Miscellaneous
 
- - [Sessions 1-3: Organising and Preparing Data in Python](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/intro_organising_preparing_data_python.html)
- - [Session 3: Interactively adding questions to a survey and answering them (Part 1)](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/exercises_0_survey_1_sol.html)
- - [Discussion of various Python elements](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/discussion_various_python_elements.html)
+- [Discussion of various Python elements [html]](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/discussion_various_python_elements.html)
 
-### Jupyter Notebooks
+### Sessions 1-3: Organising and Preparing Data in Python
+ 
+ - [Sessions 1-3 Slides: Organising and Preparing Data in Python [html]](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/intro_organising_preparing_data_python.html)
+ - [Exercises: Building a Small Dataset of Economists [pdf]](quarto/exercises_0_economists.pdf)
+ - [Sessions 1-3 In-Session Code and Comments (partly improvised, therefore chaotic) [notebook]](notebooks/small_dataset_of_economists.ipynb)
 
- - [Session 1 Notebook: Organising Data with Lists, Tuples, Dictionaries](notebooks/small_dataset_of_economists.ipynb)
+### Sessions 3-4: Another Example Using Functions and Classes
 
-### PDF files
+ - [Sessions 3-4: Interactively adding questions to a survey and answering them [html]](https://danielbgyetvai.github.io/data-analytics-python-wise2627/quarto/exercises_0_survey_sol.html)
+ - [Exercises: Creating and Conducting a Fictitious Survey [pdf]](quarto/exercises_0_survey.pdf)
+ - [Sessions 3-4 In-Session Code and Comments (partly improvised, therefore chaotic) [notebook]](notebooks/creating_and_conducting_a_fictitious_survey.ipynb)
 
- - [Exercises: Building a Small Dataset of Economists](quarto/exercises_0_economists.pdf)
- - [Exercises: Creating and Conducting a Fictitious Survey](quarto/exercises_0_survey.pdf)
- - [Exercises: Loading and Inspecting the `nlsy97_emp_hed.parquet` Dataset](quarto/exercises_1_loading_inspecting.pdf)
+### Sessions 4-5: Loading and Inspecting a Data Frame in Pandas
+
+ - [Exercises: Loading and Inspecting the `nlsy97_emp_hed.parquet` Dataset [pdf]](quarto/exercises_1_loading_inspecting.pdf)
+ - [Session 4 In-Session Code and Comments (partly improvised, therefore chaotic) [notebook]](notebooks/loading_and_inspecting_a_pandas_df.ipynb)
+
+
+
  

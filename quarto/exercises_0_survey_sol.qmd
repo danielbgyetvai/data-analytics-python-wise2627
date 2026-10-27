@@ -1,0 +1,347 @@
+---
+title: "Interactively adding questions to a survey and answering them"
+
+subtitle: "Data Analytics with Python for Economics"
+
+format:
+
+  revealjs:
+
+    theme: dark
+
+    syntax-highlighting: monokai
+
+    embed-resources: true
+
+    slide-number: true
+
+    fontsize: 24px
+
+    code-block-font-size: 0.8em
+
+execute:
+
+  echo: true
+
+
+
+---
+
+## Information
+
+These slides present some possible solutions for the exercises [Exercises: Creating and Conducting a Fictitious Survey](https://github.com/danielbgyetvai/data-analytics-python-wise2627/blob/main/quarto/exercises_0_survey.pdf).
+
+## Task 1.a {.scrollable}
+
+### Task: 
+
+Write a Python function that creates a survey by interactively collecting questions using `input()`. The function should return a list of questions. Allow the user to stop entering questions by pressing Enter without typing anything. (Possibly useful: `while`, `if`, `break`, `append`.)
+
+### A possible solution:
+
+```{python}
+
+# defining a function called create_survey()
+# with a single argument max_question 
+# with default value 10
+def create_survey(max_question = 10):
+    # creating an empty list named questions
+    questions = []
+    # iteratively collecting questions
+    # using a for loop, a range() object
+    for i in range(max_question):
+        # at each iteration, ask the user to enter the next question
+        # using input()
+        question = input('Enter the next question: ')
+        # if the user did not enter anything, break/end the loop immediately
+        if question == '':
+            break
+        # otherwise add the question entered by the user 
+        # to the list of questions
+        questions.append(question)
+    # the function's output is / the function returns 
+    # the list called questions
+    return questions
+
+
+```
+
+## Task 1.b {.scrollable}
+
+### Task:
+
+Write a Python function that takes a list of questions as input and interactively collects an answer to each question using `input()`. The function should return a list of answers in the same order as the questions. (Possibly useful: `for`, `append`.)
+
+### A possible solution:
+
+```{python}
+
+# define a function called respond
+# with a single argument named questions 
+def respond(questions):
+    # create an empty list called answers for storing the answers
+    answers = []
+    # iterate over the elements of the list called questions
+    # using a for loop
+    for question in questions:
+        # for each question, ask the user to enter an answer
+        # using input()
+        answer = input(question)
+        # append the answer to the list of answers
+        answers.append(answer)
+    # the function's output is / the function returns 
+    # the list called answers
+    return answers
+
+```
+
+## Task 1.c
+
+### Task:
+
+Use the function from (a) to create your own survey. Then pass the resulting list of questions to the function from (b). Complete the survey yourself or ask another person to respond. You are welcome to provide entirely fictitious answers or respond on behalf of an imaginary character.
+
+### A possible solution:
+
+```{python}
+#| echo: false
+
+from unittest.mock import patch
+
+questions = [
+    'How would you describe your dream job?',
+    'Are you worried about the future of your country?',
+    ''
+]
+
+with patch('builtins.input', side_effect=questions):
+    survey = create_survey()
+
+```
+
+```{python}
+#| eval: false
+# run the create_survey() function
+# and let its output (list of questions) be stored as 'survey'
+survey = create_survey()
+```
+
+```{python}
+# display the content of the list called survey
+survey
+```
+
+```{python}
+#| echo: false
+
+from unittest.mock import patch
+
+answers = [
+    'Something useful for people, versatile, and somewhat challenging.',
+    'I do not know. There is much uncertainty.'
+]
+
+with patch('builtins.input', side_effect=answers):
+    response = respond(survey)
+
+```
+
+
+```{python}
+#| eval: false
+# run the respond() function 
+# with the questions argument being equal to the list called survey 
+# and let the output (list of answers) be stored as 'response'
+response = respond(survey)
+
+```
+
+```{python}
+# display the list called response containing the list of answers
+response
+```
+
+## Task 2.a {.scrollable}
+
+### Task:
+
+Create a Python class called `Survey`.
+
+The class should have the following attributes:
+
+- `questions`: a list of survey questions.
+- `responses`: a list of lists, where each inner list contains the answers given by one respondent.
+
+The class should have the following methods:
+
+- `add_questions()`: Interactively collect questions using `input()` and add them to the questions list. Allow the user to stop entering questions by pressing Enter without typing anything.
+- `respond()`: Interactively collect one answer for each question using `input()`. Store the responses as a new list within the responses attribute.
+
+Define the `Survey` class, including its attributes and methods.
+
+### A possible solution:
+
+```{python}
+class Survey:
+    # initialiser method __init__()
+    def __init__(self):
+        # initialise two attributes for a survey object
+        # a list called questions (later: a list of strings)
+        self.questions = []
+        # a list called responses (later: a list of lists of strings)
+        self.responses = []
+
+    # add_questions() method
+    # has an optional argument max_questions
+    # with a default value of 10
+    def add_questions(self, max_questions=10):
+        # for loop over the elements of a range object
+        # range(max_questions) represents the integers
+        # from 0 to max_questions - 1
+        for i in range(max_questions):
+            # at each iteration, ask the user to enter a question
+            # using the input() function
+            # bind the name new_question to the entered string
+            new_question = input('Enter new question: ')
+
+            # if the user did not enter anything
+            # (corresponding to an empty string)
+            if new_question == '':
+                # stop the for loop immediately
+                break
+
+            # if the loop is still running at this point,
+            # append the string referenced by new_question
+            # to the questions attribute of the survey object
+            self.questions.append(new_question)
+
+    # respond() method
+    def respond(self):
+        # create a list containing one empty string per question
+        # bind the name response to this list
+        response = [''] * len(self.questions)
+
+        # iterate over each question and its corresponding index
+        # using a for loop and enumerate()
+        # enumerate() provides pairs of indices and elements
+        for i, question in enumerate(self.questions):
+            # at each iteration, ask the user to enter an answer
+            # for the current question using input()
+            # assign the entered string to the element
+            # at index i of the response list
+            response[i] = input(question + ' ')
+
+        # once all answers have been collected,
+        # append the response list to the responses attribute
+        # of the survey object
+        self.responses.append(response)
+```
+
+## Task 2.b {.scrollable}
+
+### Task:
+
+Create an instance (a particular object) of `Survey` and use `add_questions()` to enter your survey questions.
+
+### A possible solution:
+
+Creating a `Survey` instance:
+```{python}
+survey = Survey()
+```
+
+Interactively adding questions to the survey:
+
+```{python}
+#| echo: false
+
+from unittest.mock import patch
+
+questions = [
+    'Where do you see yourself in ten years?',
+    'What do you think about technological progress?',
+    ''
+]
+
+with patch('builtins.input', side_effect=questions):
+    survey.add_questions()
+```
+
+```{python}
+#| eval: false
+survey.add_questions()
+```
+
+
+## Task 2.c {.scrollable}
+
+### Task: 
+
+Use `respond()` multiple times to collect answers from different respondents. You may invent respondents and their answers.
+
+### A possible solution:
+
+Interactively collecting a response from the first respondent:
+
+```{python}
+#| echo: false
+
+from unittest.mock import patch
+
+answers = [
+    'I do not know. That is too far away in the future.',
+    'I feel inner strife when I think of technological progress.'
+]
+
+with patch('builtins.input', side_effect=answers):
+    survey.respond()
+```
+
+```{python}
+#| eval: false
+survey.respond()
+```
+
+Interactively collecting a response from the second respondent:
+
+```{python}
+#| echo: false
+
+from unittest.mock import patch
+
+answers = [
+    'I hope at the right place.',
+    'It has done good, it has done bad. Creative destruction. Sometimes more good than bad, sometimes more bad than good.'
+]
+
+with patch('builtins.input', side_effect=answers):
+    survey.respond()
+```
+
+```{python}
+#| eval: false
+survey.respond()
+```
+
+## Task 2.d {.scrollable}
+
+### Task:
+
+Inspect the attributes of your survey object. Check that the questions and responses have been stored correctly.
+
+### A possible solution:
+
+Displaying the survey questions:
+
+```{python}
+survey.questions
+```
+
+Displaying the survey responses:
+
+
+```{python}
+survey.responses
+```
+
+These are just illustrative examples. Do not hesitate to be more creative.
