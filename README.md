@@ -23,4 +23,5 @@
 
 
 
+ - [Exercises: Employment Status Patterns in the `nlsy97_emp_hed.parquet` Dataset [pdf]](quarto/exercises_1_emp_cat.pdf)
  
