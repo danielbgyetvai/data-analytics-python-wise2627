@@ -19,7 +19,7 @@
 ### Sessions 4-5: Loading and Inspecting a Data Frame in Pandas
 
  - [Exercises: Loading and Inspecting the `nlsy97_emp_hed.parquet` Dataset [pdf]](quarto/exercises_1_loading_inspecting.pdf)
- - [Session 4 In-Session Code and Comments (partly improvised, therefore chaotic) [notebook]](notebooks/loading_and_inspecting_a_pandas_df.ipynb)
+ - [Sessions 4-5 In-Session Code and Comments (partly improvised, therefore chaotic) [notebook]](notebooks/loading_and_inspecting_a_pandas_df.ipynb)
 
 
 
