@@ -28,7 +28,7 @@
 ### Sessions 7-: Probabilities
 
 - [Exercises: Relative Frequencies, Probabilities, and Conditional Probabilities [pdf]](quarto/exercises_2_probabilities.pdf)
-- [Sessions 7-8 In-Session Code and Comments (partly improvised, therefore chaotic) [notebook]](notebooks/probabilities.ipynb)
+- [Sessions 7-9 In-Session Code and Comments (partly improvised, therefore chaotic) [notebook]](notebooks/probabilities.ipynb)
 
 
 - [Exercises: Distributions [pdf]](quarto/exercises_2_distributions.pdf)
