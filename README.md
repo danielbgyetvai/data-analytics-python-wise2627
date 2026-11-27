@@ -32,4 +32,4 @@
 
 
 - [Exercises: Distributions [pdf]](quarto/exercises_2_distributions.pdf)
-- [Sessions 10-12 In-Session Code and Comments (partly improvised, therefore chaotic) [notebook]](notebooks/distributions.ipynb)
+- [Sessions 10-13 In-Session Code and Comments (partly improvised, therefore chaotic) [notebook]](notebooks/distributions.ipynb)
